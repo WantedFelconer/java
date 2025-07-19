@@ -1,0 +1,185 @@
+#--------------------------------------------------------
+
+Task 1
+
+    def isSame(self,LL):
+        current1 = self.head
+        current2 = LL.head
+        count = 0
+        index = 0
+        while current1 and current2:
+            if current1.data == current2.data:
+                count+=1
+            current1 = current1.next
+            current2 = current2.next
+            index+=1
+        if count == index and current1==None and current2==None:
+            print("Similar")
+        else:
+            print("Not Similar")
+
+#--------------------------------------------------------
+
+Task 2
+
+def sum_dist(head, arr):
+  current = head
+  index = 0
+  sum = 0
+  while current:
+    count = 0
+    for i in range(len(arr)):
+      if index == arr[i]:
+        count+=1
+      
+    if index in arr:
+      sum+=(current.elem*count)
+
+    current = current.next
+    index+=1
+
+  return sum
+
+#-----------------------------------------------------
+
+Task 3
+
+def alternate_merge(head1, head2):
+  if not head1:
+    return head2
+  if not head2:
+    return head1
+    
+  current1 = head1
+  current2 = head2
+
+  while current1 and current2:
+    temp1 = current1.next
+    temp2 = current2.next
+    current1.next = current2
+    current2.next = temp1
+    current1 = temp1
+    current2 = temp2
+  
+  # Find the last node and ensure it points to None
+  last = head1
+  while last and last.next:
+    last = last.next
+  if last:
+    last.next = None
+    
+  return head1  
+#----------------------------------------------------------
+
+Task 4
+
+def idGenerator(head1, head2, head3):
+  head1 = reverse_list(head1)
+  current = head1
+  current1 = head2
+  current2 = head3
+  
+  while current.next:
+    current = current.next
+
+  while current1 and current2:
+    sum = current1.elem + current2.elem
+    if sum>=10:
+      sum = sum%10
+    new_node = Node(sum)
+    current.next = new_node
+    current = current.next
+    current1 = current1.next
+    current2= current2.next
+  return head1
+    
+
+def reverse_list(head1):
+  current = head1
+  prev = None
+
+  while current:
+    temp = current.next
+    current.next = prev
+    prev = current
+    current = temp
+    
+  return prev  
+
+#----------------------------------------------------------
+
+Task 5
+
+def sumOddAppend( head ):
+    sum = 0
+    previous = head
+    current = previous.next
+    while current!=head:
+        if current.elem%2!=0:
+            sum+=current.elem
+            previous.next = current.next
+            current = current.next
+        else:
+            previous = current
+            current = current.next
+        #print(current.elem, end = "--->")
+    new_node = Node(sum)
+    previous.next = new_node
+    new_node.next = head
+
+#----------------------------------------------------------
+
+Task 6
+
+def pairJoin( dh1, dh2 ):
+    current1 = dh1.next
+    current2 = dh2.next
+    while current1 and current2:
+        cur_temp1 = current1.next
+        cur_temp2 = current2.next
+
+        current1.next = current2
+        current2.next = cur_temp1
+        current2.prev = current1
+
+        if cur_temp1:
+            cur_temp1.prev = current2
+        if cur_temp2:
+            cur_temp2.prev = current2
+
+        last_node = current2
+        current1 = cur_temp1
+        current2 = cur_temp2
+
+    temp = last_node
+    temp.next = dh1
+    dh1.prev = temp
+
+#----------------------------------------------------------
+
+Task 7
+
+def rangeMove( dhead1, start, end ):
+    current = dhead1.next
+    while current!=dhead1: 
+        next_cur = current.next
+        if current.elem in range(start,end+1):
+            #temp = current
+            previous = current.prev
+            previous.next = next_cur
+            next_cur.prev = previous
+            appendAtEnd(dhead1,current)
+        current = next_cur
+       
+def appendAtEnd(dhead1,nd):
+    new_current = dhead1.next
+    while new_current!=dhead1:
+        last_node = new_current
+        new_current = new_current.next
+    last_node.next = nd
+    nd.next = dhead1
+    nd.prev = last_node
+
+
+#----------------------------------------------------------
+
